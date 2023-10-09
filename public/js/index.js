@@ -33,3 +33,17 @@ if(window.location.pathname=="/"){
         }
     })
 }
+
+$('tbody tr').each(function () {
+    const statusCell = $(this).find('td:eq(4)'); 
+    const status = statusCell.text().trim();
+    if (status == 'Inactive')
+    {
+        // for hovering actions use moseover and mouseset
+        $(this).on('mouseover', function () {
+            $(this).css('background-color', 'red');
+          }).on('mouseout', function () {
+            $(this).css('background-color', ''); 
+          });
+    }
+  });
