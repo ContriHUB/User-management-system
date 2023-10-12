@@ -1,0 +1,23 @@
+{
+  "name": "user-management-system",
+  "version": "1.0.0",
+  "description": "It operates function of a database. This is basically a backend based project which deals with creating,updating,inserting,finding,deleting operations of the database. The info of that specific person will be saved to our database cloud and thence they can retrieve information whenever they want to,update it or delete it as per their choice.The information will be kept confidential with respect to their accounts.Also,this online saving information will help an individual save their  time and they can use it at times when they  forget their basic stuff.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.5.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "mongoose": "^7.6.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.3.1"
+  }
+}

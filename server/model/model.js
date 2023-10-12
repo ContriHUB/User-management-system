@@ -12,4 +12,5 @@ var schema=new mongoose.Schema({
     gender:String,
     status:String
 })
+
 module.exports=mongoose.model('Userdb',schema);
