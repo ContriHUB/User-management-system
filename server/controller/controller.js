@@ -65,7 +65,7 @@ Userdb.findByIdAndUpdate(id,req.body,{useFindAndModify:false})
     if(!data){
         res.status(404).send({message:`cannot update user with ${id}.Maybe user not found`})
     }else{
-        const audit = await Auditdb.create({userId: id, time: Date.now(),operation: "update"});
+        const audit = await Auditdb.create({name: data.name, time: Date.now(),operation: "update"});
         res.send(data);
     }
 })
@@ -80,7 +80,7 @@ Userdb.findByIdAndDelete(id)
     if(!data){
         res.status(404).send({message:`Cannot delete with id ${id}.Maybe id is wrong`})
     } else{
-        const audit = await Auditdb.create({userId: id, time: Date.now(),operation: "delete"});
+        const audit = await Auditdb.create({name: data.name, time: Date.now(),operation: "delete"});
         res.send({
             message:"User was deleted successfully!"
         })

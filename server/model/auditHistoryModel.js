@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-    userId : {type : mongoose.Schema.Types.ObjectId,ref: "Userdb"},
+    name : {type: String, required:true},
     time : {type: Date, required:true},
     operation: {type: String, required:true}
 })
