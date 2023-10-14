@@ -59,13 +59,22 @@ if(!req.body){
     .status(400)
     .send({message:"Data to update cannot be empty"})
 }
+const now = new Date();
+const year = now.getFullYear();
+const month = String(now.getMonth() + 1).padStart(2, '0');
+const day = String(now.getDate()).padStart(2, '0');
+const hours = String(now.getHours()).padStart(2, '0');
+const minutes = String(now.getMinutes()).padStart(2, '0');
+const seconds = String(now.getSeconds()).padStart(2, '0');
+
+const formattedDate = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
 const id=req.params.id;
 Userdb.findByIdAndUpdate(id,req.body,{useFindAndModify:false})
 .then(async (data)=>{
     if(!data){
         res.status(404).send({message:`cannot update user with ${id}.Maybe user not found`})
     }else{
-        const audit = await Auditdb.create({name: data.name, time: Date.now(),operation: "update"});
+        const audit = await Auditdb.create({name: data.name, time: formattedDate,operation: "update"});
         res.send(data);
     }
 })
@@ -74,13 +83,22 @@ Userdb.findByIdAndUpdate(id,req.body,{useFindAndModify:false})
 })
 }
 exports.delete=(req,res)=>{
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    
+    const formattedDate = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
 const id=req.params.id;
 Userdb.findByIdAndDelete(id)
 .then(async (data)=>{
     if(!data){
         res.status(404).send({message:`Cannot delete with id ${id}.Maybe id is wrong`})
     } else{
-        const audit = await Auditdb.create({name: data.name, time: Date.now(),operation: "delete"});
+        const audit = await Auditdb.create({name: data.name, time: formattedDate,operation: "delete"});
         res.send({
             message:"User was deleted successfully!"
         })
