@@ -110,3 +110,37 @@ Userdb.findByIdAndDelete(id)
     });
 });
 }
+exports.findAndFilter = async (req, res) => {
+    const name = req.params.name;
+    let num = parseInt(req.params.num, 10); // Convert 'num' to an integer
+    if (!num) {
+        num = Number.MAX_VALUE;
+    }
+    // Creating a Pipeline for searching so that search can be case sensitive and does not include whitespace
+    const pipeline = [
+        {
+            $match: {
+                name: {
+                    $regex: new RegExp(name, 'i')
+                }
+            }
+        },
+        { $limit: num }
+    ];
+    try {
+        const Users = await Userdb.aggregate(pipeline).exec();
+
+        if (Users && Users.length > 0) {
+            res.json(Users);
+        } else {
+            res.status(404).send({
+                message: "No matching users found."
+            });
+        }
+    } catch (error) {
+        // console.error(error);
+        res.status(500).send({
+            message: "Error in find and filter functionality."
+        });
+    }
+}
